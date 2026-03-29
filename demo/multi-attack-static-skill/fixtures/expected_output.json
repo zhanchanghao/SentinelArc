@@ -1,0 +1,10 @@
+{
+  "risk_level": "medium-risk-danger",
+  "total_score": 7,
+  "hits": [
+    { "rule_id": "J01", "category": "config-permission-risk", "score": 2, "matched_text": "chmod 777" },
+    { "rule_id": "J03", "category": "config-permission-risk", "score": 2, "matched_text": "verify=false" },
+    { "rule_id": "L01", "category": "sensitive-info-leak", "score": 3, "matched_text": "password='p@ssw0rd123'" }
+  ],
+  "reason": "Deterministic static rule matching only."
+}

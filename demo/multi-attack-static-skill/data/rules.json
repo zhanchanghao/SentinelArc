@@ -1,0 +1,57 @@
+{
+  "version": "1.0.0",
+  "risk_thresholds": {
+    "safe": [0, 0],
+    "low-risk-danger": [1, 3],
+    "medium-risk-danger": [4, 7],
+    "high-risk-danger": [8, 999]
+  },
+  "base64_validation": {
+    "enabled": true,
+    "rule_id": "H04",
+    "category": "obfuscation-exec-chain",
+    "score": 3,
+    "candidate_regex": "[A-Za-z0-9+/]{24,}={0,2}",
+    "decoded_indicators": [
+      "curl ",
+      "wget ",
+      "bash",
+      "powershell",
+      "invoke-expression",
+      "chmod 777",
+      "drop table",
+      "rm -rf",
+      "token=",
+      "password="
+    ]
+  },
+  "rules": [
+    { "rule_id": "G01", "category": "supply-chain-script-attack", "type": "regex", "pattern": "npm (preinstall|install|postinstall|prepare).*?(curl|wget|powershell|bash|sh)", "score": 3 },
+    { "rule_id": "G02", "category": "supply-chain-script-attack", "type": "regex", "pattern": "(setup\\.py|pyproject\\.toml|setup\\()(.|\\n){0,320}(https?://|curl|wget)(.|\\n){0,240}(os\\.system|subprocess\\.(run|popen|call)|exec\\(|eval\\()", "score": 3 },
+    { "rule_id": "G03", "category": "supply-chain-script-attack", "type": "keyword", "pattern": "install hook remote exec", "score": 2 },
+    { "rule_id": "G04", "category": "supply-chain-script-attack", "type": "regex", "pattern": "\"(preinstall|install|postinstall|prepare)\"\\s*:\\s*\"[^\"]*(curl|wget|invoke-webrequest|powershell|bash|sh)[^\"]*(\\||&&|;)[^\"]*\"", "score": 3 },
+    { "rule_id": "G05", "category": "supply-chain-script-attack", "type": "regex", "pattern": "(setup\\.py|pyproject\\.toml|cmdclass|build_py|install)(.|\\n){0,260}(exec\\(|eval\\(|os\\.system\\(|subprocess\\.(run|popen|call)\\().{0,120}(shell\\s*=\\s*true|\\+\\s*cmd|format\\(|f\"\\{|f'\\{)", "score": 3 },
+
+    { "rule_id": "H01", "category": "obfuscation-exec-chain", "type": "regex", "pattern": "base64\\s+-d.*(\\||&&).*(sh|bash|python|powershell)", "score": 3 },
+    { "rule_id": "H02", "category": "obfuscation-exec-chain", "type": "regex", "pattern": "(eval|exec)\\s*\\(", "score": 2 },
+    { "rule_id": "H03", "category": "obfuscation-exec-chain", "type": "regex", "pattern": "fromcharcode|atob\\(|decodeURIComponent\\(", "score": 2 },
+
+    { "rule_id": "I01", "category": "dependency-supply-chain", "type": "regex", "pattern": "pip install\\s+git\\+https?://", "score": 2 },
+    { "rule_id": "I02", "category": "dependency-supply-chain", "type": "regex", "pattern": "npm install\\s+.*(github\\.com|raw\\.githubusercontent\\.com)", "score": 2 },
+    { "rule_id": "I03", "category": "dependency-supply-chain", "type": "keyword", "pattern": "dependency confusion", "score": 2 },
+
+    { "rule_id": "J01", "category": "config-permission-risk", "type": "regex", "pattern": "chmod\\s+777", "score": 2 },
+    { "rule_id": "J02", "category": "config-permission-risk", "type": "regex", "pattern": "allow_origins\\s*=\\s*\\[\\s*\"\\*\"\\s*\\]|cors.*\\*", "score": 2 },
+    { "rule_id": "J03", "category": "config-permission-risk", "type": "regex", "pattern": "tls_verify\\s*=\\s*false|verify\\s*=\\s*false", "score": 2 },
+    { "rule_id": "J04", "category": "config-permission-risk", "type": "regex", "pattern": "AKIA[0-9A-Z]{16}", "score": 3 },
+
+    { "rule_id": "K01", "category": "dangerous-call-pattern", "type": "regex", "pattern": "yaml\\.load\\s*\\(.*loader\\s*=\\s*yaml\\.loader", "score": 3 },
+    { "rule_id": "K02", "category": "dangerous-call-pattern", "type": "regex", "pattern": "subprocess\\.(popen|run|call)\\s*\\(.*shell\\s*=\\s*true", "score": 3 },
+    { "rule_id": "K03", "category": "dangerous-call-pattern", "type": "regex", "pattern": "pickle\\.loads\\s*\\(", "score": 2 },
+    { "rule_id": "K04", "category": "dangerous-call-pattern", "type": "regex", "pattern": "md5\\s*\\(", "score": 1 },
+
+    { "rule_id": "L01", "category": "sensitive-info-leak", "type": "regex", "pattern": "(api[_-]?key|secret|token|password)\\s*[:=]\\s*['\\\"][^'\\\"]{6,}['\\\"]", "score": 3 },
+    { "rule_id": "L02", "category": "sensitive-info-leak", "type": "regex", "pattern": "-----begin (rsa |ec )?private key-----", "score": 3 },
+    { "rule_id": "L03", "category": "sensitive-info-leak", "type": "regex", "pattern": "(mysql|postgres|mongodb)://[^\\s]+:[^\\s]+@", "score": 3 }
+  ]
+}

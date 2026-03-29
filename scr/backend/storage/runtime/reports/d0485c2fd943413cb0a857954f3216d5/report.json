@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "task_id": "d0485c2fd943413cb0a857954f3216d5",
+    "artifact_sha256": "eb8355604090b75ee48b7bcb1214cfdf50b03289f609b6ede14dc393f7c681aa",
+    "created_at": "2026-03-29T15:09:19.610311+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "FAIL",
+  "summary": {
+    "score": 10,
+    "level": "Low",
+    "conclusion": "FAIL",
+    "counts_by_severity": {
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0,
+      "Info": 0
+    },
+    "counts_by_category": {
+      "skill_layout": 1
+    },
+    "checks": [
+      {
+        "id": "skill_layout",
+        "title": "Skill 包结构（前置）",
+        "description": "校验是否符合 Agent Skill 约定：解压后至少包含一处 SKILL.md；非标准结构将记为命中并判定不通过。",
+        "findings_count": 1,
+        "status": "issue"
+      },
+      {
+        "id": "secrets",
+        "title": "敏感信息泄露",
+        "description": "基于正则匹配检测私钥、云访问密钥、令牌等敏感内容。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "sast",
+        "title": "危险调用与代码模式（SAST）",
+        "description": "对源码脚本扫描 eval/exec、子进程、反序列化、非安全 YAML 等风险模式。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "config",
+        "title": "配置与权限风险",
+        "description": "检查 .env、yaml/json 等常见配置中的调试开关、CORS 过宽、TLS 校验关闭等。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "malicious",
+        "title": "恶意特征与可疑行为",
+        "description": "启发式检测下载并执行、可疑 PowerShell、挖矿关键字、异常长 Base64 等。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "dependency",
+        "title": "依赖与供应链",
+        "description": "识别依赖清单（requirements.txt、package.json 等）；对 Python 固定版本依赖查询 OSV 公开漏洞库。",
+        "findings_count": 0,
+        "status": "clear"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "c8382f3a40a840aabef5cd53c2052799",
+      "rule_id": "LAYOUT-SKILL-MD-MISSING",
+      "category": "skill_layout",
+      "severity": "High",
+      "confidence": 0.95,
+      "file_path": ".",
+      "line_range": null,
+      "snippet_redacted": null,
+      "evidence": {
+        "issue": "missing_skill_md",
+        "detail": "解压后的目录树中未找到任何 SKILL.md，不符合标准 Agent Skill 包结构。"
+      },
+      "recommendation": "请上传符合约定的 Skill 压缩包：在根目录或子目录中包含 SKILL.md（技能清单）。若仅为普通源码归档，请改用明确支持的制品类型或补充 SKILL.md。"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "task_id": "9e88f4642326495ca40847ae12803c3d",
+    "artifact_sha256": "eb8355604090b75ee48b7bcb1214cfdf50b03289f609b6ede14dc393f7c681aa",
+    "created_at": "2026-03-29T16:34:01.176810+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "FAIL",
+  "summary": {
+    "score": 0.0,
+    "score_raw": 0,
+    "level": "High",
+    "conclusion": "FAIL",
+    "counts_by_severity": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Info": 0
+    },
+    "counts_by_category": {
+      "skill_layout": 1
+    },
+    "counts_by_attack_type": {},
+    "checks": [
+      {
+        "id": "skill_layout",
+        "title": "Skill 包结构（前置）",
+        "description": "校验是否符合 Agent Skill 约定：解压后至少包含一处 SKILL.md；非标准结构将记为命中并判定不通过。",
+        "findings_count": 1,
+        "status": "fail"
+      },
+      {
+        "id": "secrets",
+        "title": "敏感信息泄露",
+        "description": "基于正则匹配检测私钥、云访问密钥、令牌等敏感内容。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "sast",
+        "title": "危险调用与代码模式（SAST）",
+        "description": "对源码脚本扫描 eval/exec、子进程、反序列化、非安全 YAML 等风险模式。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "config",
+        "title": "配置与权限风险",
+        "description": "检查 .env、yaml/json 等常见配置中的调试开关、CORS 过宽、TLS 校验关闭等。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "malicious",
+        "title": "恶意特征与可疑行为",
+        "description": "启发式检测下载并执行、可疑 PowerShell、挖矿关键字、异常长 Base64 等。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "dependency",
+        "title": "依赖与供应链",
+        "description": "识别依赖清单（requirements.txt、package.json 等）；对 Python 固定版本依赖查询 OSV 公开漏洞库。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "prompt_injection",
+        "title": "Prompt 注入与越权指令",
+        "description": "检测忽略系统指令、工具越权调用、关闭安全策略等可疑提示词注入语句。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "attack_chain",
+        "title": "混淆与执行链路",
+        "description": "检测解码后执行、输入到动态执行等组合攻击链路并进行证据加权。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "exfiltration",
+        "title": "敏感信息外传行为",
+        "description": "检测敏感读取与网络外发组合行为，识别疑似数据泄露链路。",
+        "findings_count": 0,
+        "status": "not_checked"
+      },
+      {
+        "id": "supplychain",
+        "title": "供应链脚本攻击",
+        "description": "检测 npm 安装钩子和 Python 构建脚本中的远程下载执行与动态命令。",
+        "findings_count": 0,
+        "status": "not_checked"
+      }
+    ],
+    "reason": "skill_layout_invalid_missing_skill_md"
+  },
+  "findings": []
+}

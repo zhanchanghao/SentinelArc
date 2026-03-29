@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "task_id": "ace16a8255574f4aa15282d194acbca8",
+    "artifact_sha256": "eb8355604090b75ee48b7bcb1214cfdf50b03289f609b6ede14dc393f7c681aa",
+    "created_at": "2026-03-29T09:29:33.404414+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "PASS",
+  "summary": {
+    "score": 12,
+    "level": "Low",
+    "conclusion": "PASS",
+    "counts_by_severity": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 6,
+      "Info": 0
+    },
+    "counts_by_category": {
+      "malicious": 6
+    },
+    "checks": [
+      {
+        "id": "secrets",
+        "title": "敏感信息泄露",
+        "description": "基于正则匹配检测私钥、云访问密钥、令牌等敏感内容。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "sast",
+        "title": "危险调用与代码模式（SAST）",
+        "description": "对源码脚本扫描 eval/exec、子进程、反序列化、非安全 YAML 等风险模式。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "config",
+        "title": "配置与权限风险",
+        "description": "检查 .env、yaml/json 等常见配置中的调试开关、CORS 过宽、TLS 校验关闭等。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "malicious",
+        "title": "恶意特征与可疑行为",
+        "description": "启发式检测下载并执行、可疑 PowerShell、挖矿关键字、异常长 Base64 等。",
+        "findings_count": 6,
+        "status": "issue"
+      },
+      {
+        "id": "dependency",
+        "title": "依赖与供应链",
+        "description": "识别依赖清单（requirements.txt、package.json 等）；对 Python 固定版本依赖查询 OSV 公开漏洞库。",
+        "findings_count": 0,
+        "status": "clear"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "bcfccadee33a404b9c8b5fe4937d96cf",
+      "rule_id": "MAL-BASE64-LONG",
+      "category": "malicious",
+      "severity": "Low",
+      "confidence": 0.55,
+      "file_path": "net48/System.Data.SQLite.dll",
+      "line_range": "14086",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "[A-Za-z0-9+/]{200,}={0,2}"
+      },
+      "recommendation": "检测到长 base64 字符串，建议确认是否为嵌入式可执行/配置"
+    },
+    {
+      "id": "ad71b83d725045a1b6ef75c3d0c1cc4e",
+      "rule_id": "MAL-BASE64-LONG",
+      "category": "malicious",
+      "severity": "Low",
+      "confidence": 0.55,
+      "file_path": "net48/Newtonsoft.Json.dll",
+      "line_range": "27347",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "[A-Za-z0-9+/]{200,}={0,2}"
+      },
+      "recommendation": "检测到长 base64 字符串，建议确认是否为嵌入式可执行/配置"
+    },
+    {
+      "id": "a6a672711866441e99da0d4a917005f4",
+      "rule_id": "MAL-BASE64-LONG",
+      "category": "malicious",
+      "severity": "Low",
+      "confidence": 0.55,
+      "file_path": "net48/x64/SQLite.Interop.dll",
+      "line_range": "23581",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "[A-Za-z0-9+/]{200,}={0,2}"
+      },
+      "recommendation": "检测到长 base64 字符串，建议确认是否为嵌入式可执行/配置"
+    },
+    {
+      "id": "174a8a50f3594c8193fb5b7321f5e054",
+      "rule_id": "MAL-BASE64-LONG",
+      "category": "malicious",
+      "severity": "Low",
+      "confidence": 0.55,
+      "file_path": "net48/x64/SQLite.Interop.dll",
+      "line_range": "34587",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "[A-Za-z0-9+/]{200,}={0,2}"
+      },
+      "recommendation": "检测到长 base64 字符串，建议确认是否为嵌入式可执行/配置"
+    },
+    {
+      "id": "8b8cb31ec38b4794bdeb1159313ad76b",
+      "rule_id": "MAL-BASE64-LONG",
+      "category": "malicious",
+      "severity": "Low",
+      "confidence": 0.55,
+      "file_path": "net48/x86/SQLite.Interop.dll",
+      "line_range": "35200",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "[A-Za-z0-9+/]{200,}={0,2}"
+      },
+      "recommendation": "检测到长 base64 字符串，建议确认是否为嵌入式可执行/配置"
+    },
+    {
+      "id": "1bb9271c61ef466facb33276faba6132",
+      "rule_id": "MAL-BASE64-LONG",
+      "category": "malicious",
+      "severity": "Low",
+      "confidence": 0.55,
+      "file_path": "net48/x86/SQLite.Interop.dll",
+      "line_range": "36375",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "[A-Za-z0-9+/]{200,}={0,2}"
+      },
+      "recommendation": "检测到长 base64 字符串，建议确认是否为嵌入式可执行/配置"
+    }
+  ]
+}

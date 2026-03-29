@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "task_id": "577855d672fd42a699132f93e4de27e1",
+    "artifact_sha256": "02f5592c54e8b81cd9d29c318fea4db72265c26bcbac023ce026cc92e39c0e63",
+    "created_at": "2026-03-29T09:27:56.175820+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "PASS",
+  "summary": {
+    "score": 0,
+    "level": "Info",
+    "conclusion": "PASS",
+    "counts_by_severity": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Info": 0
+    },
+    "counts_by_category": {},
+    "checks": [
+      {
+        "id": "secrets",
+        "title": "敏感信息泄露",
+        "description": "基于正则匹配检测私钥、云访问密钥、令牌等敏感内容。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "sast",
+        "title": "危险调用与代码模式（SAST）",
+        "description": "对源码脚本扫描 eval/exec、子进程、反序列化、非安全 YAML 等风险模式。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "config",
+        "title": "配置与权限风险",
+        "description": "检查 .env、yaml/json 等常见配置中的调试开关、CORS 过宽、TLS 校验关闭等。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "malicious",
+        "title": "恶意特征与可疑行为",
+        "description": "启发式检测下载并执行、可疑 PowerShell、挖矿关键字、异常长 Base64 等。",
+        "findings_count": 0,
+        "status": "clear"
+      },
+      {
+        "id": "dependency",
+        "title": "依赖与供应链",
+        "description": "识别依赖清单（requirements.txt、package.json 等）；对 Python 固定版本依赖查询 OSV 公开漏洞库。",
+        "findings_count": 0,
+        "status": "clear"
+      }
+    ]
+  },
+  "findings": []
+}

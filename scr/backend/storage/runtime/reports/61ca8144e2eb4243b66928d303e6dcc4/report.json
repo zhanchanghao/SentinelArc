@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "task_id": "61ca8144e2eb4243b66928d303e6dcc4",
+    "artifact_sha256": "02f5592c54e8b81cd9d29c318fea4db72265c26bcbac023ce026cc92e39c0e63",
+    "created_at": "2026-03-29T09:18:24.764597+00:00",
+    "engine_version": "0.1.0",
+    "ruleset_version": "0.1.0"
+  },
+  "conclusion": "PASS",
+  "summary": {
+    "score": 0,
+    "level": "Info",
+    "conclusion": "PASS",
+    "counts_by_severity": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Info": 0
+    },
+    "counts_by_category": {}
+  },
+  "findings": []
+}
